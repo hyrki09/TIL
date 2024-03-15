@@ -63,7 +63,33 @@ AbstractDispatcherServletInitializer라는 이름의 이 인터페이스의 추�
 > 섹션 5.14의 “Additional Capabilities of the ApplicationContext”(ApplicationContext의 추가 기능)에서 자세히 설명한 대로 Spring의 ApplicationContext 인스턴스의 범위를 지정할 수 있습니다.   
 Web MVC 프레임워크에서 각 DispatcherServlet에는 고유한 WebApplicationContext가 있으며, 이는 루트 WebApplicationContext에 이미 정의된 모든 빈을 상속합니다.    
 이러한 상속된 빈은 Servlet별 범위에서 재정의할 수 있으며, 주어진 Servlet 인스턴스에 로컬인 새로운 범위별 빈을 정의할 수 있습니다.    
- 
+
+---
+
+DispatcherServlet을 초기화하면 Spring MVC는 웹 애플리케이션의 WEB-INF 디렉터리에서 [servlet-name]-servlet.xml이라는 파일을 찾고 거기에 정의된 Bean을 생성하고 동일한 이름으로 정의된 모든 Bean의 정의를 재정의합니다. 글로벌 범위에서.
+
+다음 DispatcherServlet Servlet 구성(web.xml 파일)을 고려하십시오.
+
+``` xml
+<web-app>
+
+    <servlet>
+        <servlet-name>golfing</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>golfing</servlet-name>
+        <url-pattern>/golfing/*</url-pattern>
+    </servlet-mapping>
+
+</web-app>
+```
+ 위의 서블릿 구성을 사용하면 애플리케이션에 /WEB-INF/golfing-servlet.xml이라는 파일이 있어야 합니다. 이 파일에는 모든 Spring Web MVC 관련 구성 요소(빈)가 포함됩니다. 서블릿 초기화 매개변수를 통해 이 구성 파일의 정확한 위치를 변경할 수 있습니다(자세한 내용은 아래 참조).
+
+WebApplicationContext는 웹 애플리케이션에 필요한 몇 가지 추가 기능을 포함하는 일반 ApplicationContext의 확장입니다.    
+ WebApplicationContext는 ServletContext에 바인딩되어 있으며 RequestContextUtils 클래스의 정적 메서드를 사용하면 WebApplicationContext에 액세스해야 하는 경우 언제든지 WebApplicationContext를 조회할 수 있습니다.
 
  
 
