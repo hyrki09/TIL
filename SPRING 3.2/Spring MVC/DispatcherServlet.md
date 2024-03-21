@@ -92,6 +92,11 @@ WebApplicationContext는 웹 애플리케이션에 필요한 몇 가지 추가 �
  WebApplicationContext는 ServletContext에 바인딩되어 있으며 RequestContextUtils 클래스의 정적 메서드를 사용하면 WebApplicationContext에 액세스해야 하는 경우 언제든지 WebApplicationContext를 조회할 수 있습니다.
 
  
+ ----
+## Special Bean Types In the WebApplicationContext
+ Spring DispatcherServlet은 특수 빈을 사용하여 요청을 처리하고 적절한 뷰를 렌더링합니다. 이 빈은 Spring MVC의 일부입니다. WebApplicationContext에서 하나 이상의 빈을 간단히 구성하여 사용할 특수 빈을 선택할 수 있습니다. 그러나 Spring MVC는 구성하지 않은 경우 사용할 기본 Bean 목록을 유지하므로 처음에는 이를 수행할 필요가 없습니다. 이에 대한 자세한 내용은 다음 섹션에서 확인하세요. 먼저 DispatcherServlet이 의존하는 특수 Bean 유형을 나열하는 아래 표를 참조하십시오.
+
+
 
 
 
